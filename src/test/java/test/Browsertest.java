@@ -12,16 +12,21 @@ import org.testng.annotations.Test;
 public class Browsertest {
 	@Test
 	public void main() {
-		 // Create ChromeOptions object
-        ChromeOptions options = new ChromeOptions();
+		ChromeOptions options = new ChromeOptions();
+		options.addArguments("--headless=new", "--no-sandbox", "--disable-dev-shm-usage");
 
-        // Set headless mode (required for Linux CI / no GUI environments)
-        options.addArguments("--headless");
-        options.addArguments("--no-sandbox");              // Required for some Linux CI servers
-        options.addArguments("--disable-dev-shm-usage");   // Fixes shared memory issues
-
-        // Initialize ChromeDriver with options
-        WebDriver driver = new ChromeDriver(options);
+		WebDriver driver = new ChromeDriver(options);
+		
+		// Create ChromeOptions object
+//        ChromeOptions options = new ChromeOptions();
+//
+//        // Set headless mode (required for Linux CI / no GUI environments)
+//        options.addArguments("--headless");
+//        options.addArguments("--no-sandbox");              // Required for some Linux CI servers
+//        options.addArguments("--disable-dev-shm-usage");   // Fixes shared memory issues
+//
+//        // Initialize ChromeDriver with options
+//        WebDriver driver = new ChromeDriver(options);
 
 		// TODO Auto-generated method stub
 		//WebDriver driver = new ChromeDriver();

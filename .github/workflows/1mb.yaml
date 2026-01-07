@@ -11,18 +11,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout code
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Java setup
       - name: Set up Java 17
         uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: 17
 
-      # Maven cache
       - name: Cache Maven dependencies
         uses: actions/cache@v3
         with:
@@ -31,22 +28,15 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
-      # Install Chrome
-      - name: Install Google Chrome
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y google-chrome-stable xvfb
+      # Chrome is already preinstalled on ubuntu-latest
+      - name: Verify Chrome
+        run: google-chrome --version
 
-      # Setup ChromeDriver
-      - name: Setup ChromeDriver
-        uses: nanasess/setup-chromedriver@v1
-
-      # Run Maven tests (IMPORTANT FIX)
+      # Run tests (NO chromedriver setup)
       - name: Run Maven Tests
         run: |
           xvfb-run -a mvn clean test -DfailIfNoTests=false
 
-      # Upload reports ONLY if they exist
       - name: Upload Test Reports
         if: always() && hashFiles('target/surefire-reports/**') != ''
         uses: actions/upload-artifact@v4
