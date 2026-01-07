@@ -33,7 +33,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
-      # Step 4: Install Chrome
+      # Step 4: Install Google Chrome
       - name: Install Google Chrome
         run: |
           sudo apt-get update
@@ -43,20 +43,20 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y google-chrome-stable
 
-      # Step 5: Set up ChromeDriver automatically
+      # Step 5: Setup ChromeDriver automatically
       - name: Setup ChromeDriver
         uses: nanasess/setup-chromedriver@v1
         with:
           chrome-version: latest
 
-      # Step 6: Run Maven tests
+      # Step 6: Build and run Maven tests
       - name: Build and run tests
         run: mvn clean test
 
-      # Optional Step 7: Publish TestNG results (if you use TestNG)
+      # Step 7: Publish TestNG results (updated to v4)
       - name: Publish TestNG test results
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: testng-results
           path: target/surefire-reports/testng-results.xml
