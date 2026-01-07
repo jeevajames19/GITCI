@@ -5,14 +5,26 @@ import java.time.Duration;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.annotations.Test;
 
 public class Browsertest {
 	@Test
 	public void main() {
+		 // Create ChromeOptions object
+        ChromeOptions options = new ChromeOptions();
+
+        // Set headless mode (required for Linux CI / no GUI environments)
+        options.addArguments("--headless");
+        options.addArguments("--no-sandbox");              // Required for some Linux CI servers
+        options.addArguments("--disable-dev-shm-usage");   // Fixes shared memory issues
+
+        // Initialize ChromeDriver with options
+        WebDriver driver = new ChromeDriver(options);
+
 		// TODO Auto-generated method stub
-		WebDriver driver = new ChromeDriver();
+		//WebDriver driver = new ChromeDriver();
 		driver.get("https://blazedemo.com/");
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
 		Select s = new Select(driver.findElement(By.name("fromPort")));
