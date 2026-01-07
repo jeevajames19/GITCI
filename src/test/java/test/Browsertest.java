@@ -51,6 +51,8 @@ public class Browsertest {
 			}	
 		}
 		System.out.println("Max :"+max);
+		System.out.println("PASSED WITH CI");
+
 	}
 
 }
