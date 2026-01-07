@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout the code
+      # Step 1: Checkout repository
       - name: Checkout repository
         uses: actions/checkout@v4
 
@@ -49,14 +49,14 @@ jobs:
         with:
           chrome-version: latest
 
-      # Step 6: Build and run Maven tests
+      # Step 6: Build and run Maven tests in headless mode
       - name: Build and run tests
-        run: mvn clean test
+        run: xvfb-run -a mvn clean test
 
-      # Step 7: Publish TestNG results (updated to v4)
-      - name: Publish TestNG test results
+      # Step 7: Upload TestNG reports
+      - name: Upload TestNG reports
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: testng-results
-          path: target/surefire-reports/testng-results.xml
+          name: testng-reports
+          path: target/surefire-reports/
